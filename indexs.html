@@ -50,15 +50,22 @@
 <!--||----------------------------------------------------------------------||-->
 
 <!-- Upload Image section -->
+
 <div class="UploadImage">
     <h1>Upload Image</h1>
-<div id="dropZone">
-    <img src="images/image.png" alt="Upload Icon" />
-    <p>Drag and Drop to Upload Image <br/> OR  <br/><span class="clickToUpload">Click to upload</span> </p>
+    <div id="dropZone">
+        <img src="images/image.png" alt="Upload Icon" />
+        <p>Drag and Drop to Upload Image <br/> OR  <br/><span class="clickToUpload">Click to upload</span> </p>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" style="display: none;" multiple />
+    <p id="status"></p>
+    <div id="progressContainer" style="display: none;">
+        <div id="progressBar" style="width: 0%; height: 20px; background-color: blue; transition: width 0.5s;"></div>
+        <div id="progressText" style="text-align: center; margin-top: 5px; font-weight: bold;">0%</div>
+    </div>
+    <div id="imageGrid"></div>
 </div>
-<input type="file" id="fileInput" accept="image/*" style="display: none;" multiple />
-<p id="status"></p>
-<div id="imageGrid"></div>
+
 
 <!--style for upload image-->
 <style>
@@ -131,6 +138,20 @@
         border-radius: 5px;
         padding: 5px 10px;
     }
+    #progressContainer {
+        width: 100%;
+        max-width: 400px; /* Limit the width of the progress bar */
+        margin: 20px auto; /* Center the container */
+        text-align: center; /* Center text within the container */
+        border-radius: 20px;
+    }
+    
+    #progressBar {
+        background-color: blue; /* Initial color */
+        transition: width 0.5s ease; /* Smooth transition for the width */
+        border-radius: 20px;
+    }
+    
     @media (max-width: 900px) {
         #imageGrid {
             grid-template-columns: repeat(3, 1fr); /* 3 columns for tablets */
@@ -148,7 +169,6 @@
             grid-template-columns: 1fr; /* 1 column for small phones */
         }
     }
-    
 </style>
 <!--style for upload image-->
 
@@ -276,10 +296,39 @@
             .book-entries {
                 grid-template-columns: repeat(2, auto); /* 2 columns for tablets */
             }
+            .book-select {
+                width: 99%;
+                padding: 12px;
+                margin-top: 5px;
+                border: 1px solid #bdc3c7;
+                border-radius: 5px;
+                transition: border 0.3s;
+                font-size: 16px;
+            }
         }
         @media (max-width: 600px) { /* Adjust the max-width as needed */
             .book-entries {
                 grid-template-columns: 1fr; /* Change to 1 column */
+            }
+            .book-select {
+                width: 101.2%;
+                padding: 12px;
+                margin-top: 5px;
+                border: 1px solid #bdc3c7;
+                border-radius: 5px;
+                transition: border 0.3s;
+                font-size: 16px;
+            }
+            @media (max-width: 400px) {
+                .book-select {
+                    width: 103%;
+                padding: 12px;
+                margin-top: 5px;
+                border: 1px solid #bdc3c7;
+                border-radius: 5px;
+                transition: border 0.3s;
+                font-size: 16px;
+                }
             }
         }
     </style>

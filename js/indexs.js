@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject,uploadBytesResumable } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
 
 // Your Firebase config
 const firebaseConfig = {
@@ -58,25 +58,51 @@ document.getElementById('fileInput').addEventListener('change', (e) => {
 async function handleFiles(files) {
     for (let file of files) {
         if (!file.type.startsWith('image/')) { continue }
+
         const storageRef = ref(storage, `${userId}/${file.name}`);
-        try {
-            await uploadBytes(storageRef, file);
-            const downloadURL = await getDownloadURL(storageRef);
-            document.getElementById('status').innerText = 'Upload successful!';
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-            const imageObject = { url: downloadURL, name: file.name };
+        // Show the progress container
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+        progressContainer.style.display = 'block';
 
-            const userDocRef = doc(db, 'users', userId);
-            await updateDoc(userDocRef, {
-                images: arrayUnion(imageObject)
-            });
+        uploadTask.on('state_changed', 
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                progressBar.style.width = `${progress}%`;
+                progressText.innerText = `${Math.floor(progress)}%`; // Update the percentage text
 
-            displayImage(imageObject);
-        } catch (error) {
-            document.getElementById('status').innerText = 'Upload failed: ' + error.message;
-        }
+                if (progress < 100) {
+                    progressBar.style.backgroundColor = 'blue'; // Intermediate color
+                }
+            }, 
+            (error) => {
+                document.getElementById('status').innerText = 'Upload failed: ' + error.message;
+                progressContainer.style.display = 'none'; // Hide progress bar on error
+            }, 
+            async () => {
+                const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                document.getElementById('status').innerText = 'Upload successful!';
+                progressBar.style.backgroundColor = 'green'; // Change color to green on completion
+                progressText.innerText = '100%'; // Set text to 100%
+
+                const imageObject = { url: downloadURL, name: file.name };
+
+                const userDocRef = doc(db, 'users', userId);
+                await updateDoc(userDocRef, {
+                    images: arrayUnion(imageObject)
+                });
+
+                displayImage(imageObject);
+                progressContainer.style.display = 'none'; // Hide progress bar after upload
+            }
+        );
     }
 }
+
+
 
 async function loadImages() {
     const userDocRef = doc(db, 'users', userId);
