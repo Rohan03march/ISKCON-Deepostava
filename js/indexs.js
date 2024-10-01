@@ -104,6 +104,7 @@ async function handleFiles(files) {
             }
         );
     }
+    
 }
 
 async function loadImages() {
