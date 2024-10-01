@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="images/iskcon-fevicon.png" type="image/gif" />
     <title>Home</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="log">
-        <button class="login" onclick="login()">Login</button>
+      <button class="login" onclick="login()">Login</button>
 
-        <!-- css and js for the login button -->
-        <style>
-            .login {
-                padding: 10px 20px;
-                font-size: 16px;
-                color: white;
-                background-color: #ff4d4d;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s, transform 0.3s;
-                align-items: center;
-            }
-            .login:hover {
-                background-color: #ff1a1a;
-                    transform: scale(1.05);
-            }
-            @media (max-width: 600px) {
-                .login{
-                    width: 100%;
-                    font-size: 18px;
-                }
-            }
-        </style>
-        
-        <!--Script for login button -->
-        <script>
-            function login() {
-                window.location.href = './login.html';
-            }
-        </script>
+      <!-- css and js for the login button -->
+      <style>
+        .login {
+          padding: 10px 20px;
+          font-size: 16px;
+          color: white;
+          background-color: #ff4d4d;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s, transform 0.3s;
+          align-items: center;
+        }
+        .login:hover {
+          background-color: #ff1a1a;
+          transform: scale(1.05);
+        }
+        @media (max-width: 600px) {
+          .login {
+            width: 100%;
+            font-size: 18px;
+          }
+        }
+      </style>
+
+      <!--Script for login button -->
+      <script>
+        function login() {
+          window.location.href = "./login.html";
+        }
+      </script>
     </div>
 
     <!--disable this page 
@@ -50,6 +49,5 @@
         event.preventDefault();
     });
 </script>-->
-
-</body>
+  </body>
 </html>
