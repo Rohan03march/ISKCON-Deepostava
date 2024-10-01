@@ -131,7 +131,7 @@ function displayImage(image) {
     deleteButton.classList.add('deleteButton');
 
     deleteButton.addEventListener('click', async () => {
-        const storageRef = ref(storage, `${userId}/${image.url.split('/').pop()}`); // Extract name from URL
+        const storageRef = ref(storage, `${userId}/${image.name}`);
         try {
             await deleteObject(storageRef);
 
@@ -150,7 +150,6 @@ function displayImage(image) {
     imageContainer.appendChild(deleteButton);
     imageGrid.appendChild(imageContainer);
 }
-
 
 //---------------------------------- for book reading ------------------------------
 
