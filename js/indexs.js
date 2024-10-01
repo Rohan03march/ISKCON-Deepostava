@@ -59,11 +59,7 @@ async function handleFiles(files) {
     for (let file of files) {
         if (!file.type.startsWith('image/')) { continue }
 
-        // Create a unique file name by appending a timestamp
-        const timestamp = Date.now(); // Get the current timestamp
-        const uniqueFileName = `${timestamp}_${file.name}`; // Append timestamp to the original file name
-
-        const storageRef = ref(storage, `${userId}/${uniqueFileName}`);
+        const storageRef = ref(storage, `${userId}/${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         // Show the progress container
@@ -76,7 +72,7 @@ async function handleFiles(files) {
             (snapshot) => {
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 progressBar.style.width = `${progress}%`;
-                progressText.innerText = `${Math.floor(progress)}%`;
+                progressText.innerText = `${Math.floor(progress)}%`; // Update the percentage text
 
                 if (progress < 100) {
                     progressBar.style.backgroundColor = 'blue'; // Intermediate color
@@ -92,7 +88,7 @@ async function handleFiles(files) {
                 progressBar.style.backgroundColor = 'green'; // Change color to green on completion
                 progressText.innerText = '100%'; // Set text to 100%
 
-                const imageObject = { url: downloadURL, name: uniqueFileName }; // Use the unique name
+                const imageObject = { url: downloadURL, name: file.name };
 
                 const userDocRef = doc(db, 'users', userId);
                 await updateDoc(userDocRef, {
@@ -104,8 +100,9 @@ async function handleFiles(files) {
             }
         );
     }
-    
 }
+
+
 
 async function loadImages() {
     const userDocRef = doc(db, 'users', userId);
