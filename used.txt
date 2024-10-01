@@ -1,0 +1,126 @@
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-storage.js";
+
+// Your Firebase config
+const firebaseConfig = {
+    apiKey: "AIzaSyB1jmMeWclknWulKUJLTu894mY5L3IHexw",
+    authDomain: "iskcondeepostava-d89e2.firebaseapp.com",
+    projectId: "iskcondeepostava-d89e2",
+    storageBucket: "iskcondeepostava-d89e2.appspot.com",
+    messagingSenderId: "599506324462",
+    appId: "1:599506324462:web:7997c5dde1549d26365cff"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+let userId;
+
+// Handle authentication state
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        userId = user.uid;
+        await loadImages(); // Load images after user is authenticated
+    } else {
+        window.location.href = 'index.html'; // Redirect if not logged in
+    }
+});
+
+document.getElementById('dropZone').addEventListener('click', () => {
+    document.getElementById('fileInput').click();
+});
+
+document.getElementById('dropZone').addEventListener('dragover', (e) => {
+    e.preventDefault();
+    document.getElementById('dropZone').style.backgroundColor = '#e8f0ff';
+});
+
+document.getElementById('dropZone').addEventListener('dragleave', () => {
+    document.getElementById('dropZone').style.backgroundColor = '';
+});
+
+document.getElementById('dropZone').addEventListener('drop', (e) => {
+    e.preventDefault();
+    document.getElementById('dropZone').style.backgroundColor = '';
+    handleFiles(e.dataTransfer.files);
+});
+
+document.getElementById('fileInput').addEventListener('change', (e) => {
+    handleFiles(e.target.files);
+});
+
+async function handleFiles(files) {
+    for (let file of files) {
+        if (!file.type.startsWith('image/')) { continue }
+        const storageRef = ref(storage, `${userId}/${file.name}`);
+        try {
+            await uploadBytes(storageRef, file);
+            const downloadURL = await getDownloadURL(storageRef);
+            document.getElementById('status').innerText = 'Upload successful!';
+
+            const imageObject = { url: downloadURL, name: file.name };
+
+            const userDocRef = doc(db, 'users', userId);
+            await updateDoc(userDocRef, {
+                images: arrayUnion(imageObject)
+            });
+
+            displayImage(imageObject);
+        } catch (error) {
+            document.getElementById('status').innerText = 'Upload failed: ' + error.message;
+        }
+    }
+}
+
+async function loadImages() {
+    const userDocRef = doc(db, 'users', userId);
+    const userDoc = await getDoc(userDocRef);
+    
+    if (userDoc.exists()) {
+        const images = userDoc.data().images || [];
+        images.forEach((image) => {
+            displayImage(image);
+        });
+    }
+}
+
+function displayImage(image) {
+    const imageGrid = document.getElementById('imageGrid');
+
+    const imageContainer = document.createElement('div');
+    imageContainer.classList.add('imageContainer');
+
+    const img = document.createElement('img');
+    img.src = image.url;
+    img.alt = image.name;
+
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Delete';
+    deleteButton.classList.add('deleteButton');
+
+    deleteButton.addEventListener('click', async () => {
+        const storageRef = ref(storage, `${userId}/${image.name}`);
+        try {
+            await deleteObject(storageRef);
+
+            const userDocRef = doc(db, 'users', userId);
+            await updateDoc(userDocRef, {
+                images: arrayRemove(image)
+            });
+
+            imageGrid.removeChild(imageContainer);
+        } catch (error) {
+            alert('Error deleting image: ' + error.message);
+        }
+    });
+
+    imageContainer.appendChild(img);
+    imageContainer.appendChild(deleteButton);
+    imageGrid.appendChild(imageContainer);
+}
