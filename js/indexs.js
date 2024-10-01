@@ -59,7 +59,12 @@ async function handleFiles(files) {
     for (let file of files) {
         if (!file.type.startsWith('image/')) { continue }
 
-        const storageRef = ref(storage, `${userId}/${file.name}`);
+        // Create a more meaningful filename
+        const originalName = file.name.split('.')[0]; // Get original name without extension
+        const extension = file.name.split('.').pop(); // Get file extension
+        const newFileName = `${originalName}_${Date.now()}.${extension}`; // Append timestamp
+
+        const storageRef = ref(storage, `${userId}/${newFileName}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         // Show the progress container
@@ -88,7 +93,7 @@ async function handleFiles(files) {
                 progressBar.style.backgroundColor = 'green'; // Change color to green on completion
                 progressText.innerText = '100%'; // Set text to 100%
 
-                const imageObject = { url: downloadURL, name: file.name };
+                const imageObject = { url: downloadURL, name: newFileName }; // Use new filename
 
                 const userDocRef = doc(db, 'users', userId);
                 await updateDoc(userDocRef, {
@@ -101,6 +106,7 @@ async function handleFiles(files) {
         );
     }
 }
+
 
 async function loadImages() {
     const userDocRef = doc(db, 'users', userId);
