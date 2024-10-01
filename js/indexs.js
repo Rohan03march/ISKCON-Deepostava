@@ -102,8 +102,6 @@ async function handleFiles(files) {
     }
 }
 
-
-
 async function loadImages() {
     const userDocRef = doc(db, 'users', userId);
     const userDoc = await getDoc(userDocRef);
