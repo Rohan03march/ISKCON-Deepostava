@@ -6,340 +6,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="icon" href="images/iskcon-fevicon.png" type="image/gif" />
     <title>Deepostava</title>
-</head>
-<body>
-    
-<!--Logout button -->
-    <div class="log">
-        <button class="logout" onclick="logout()">Logout</button>
-
-        <!-- css and js for the logout button -->
-        <style>
-            .logout {
-                padding: 10px 20px;
-                font-size: 16px;
-                color: white;
-                background-color: #ff4d4d;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s, transform 0.3s;
-                align-items: center;
-            }
-            .logout:hover {
-                background-color: #ff1a1a;
-                    transform: scale(1.05);
-            }
-            @media (max-width: 600px) {
-                .logout{
-                    width: 100%;
-                    font-size: 18px;
-                }
-            }
-        </style>
-        
-        <!--Script for logout button -->
-        <script>
-            function logout() {
-                window.location.href = './index.html';
-            }
-        </script>
-      </div>
-<!--/Logout button -->
-
-<!--||----------------------------------------------------------------------||-->
-
-<!-- Upload Image section -->
-
-<div class="UploadImage">
-    <h1>Upload Image</h1>
-    <div id="dropZone">
-        <img src="images/image.png" alt="Upload Icon" />
-        <p>Drag and Drop to Upload Image <br/> OR  <br/><span class="clickToUpload">Click to upload</span> </p>
-    </div>
-    <input type="file" id="fileInput" accept="image/*" style="display: none;" multiple />
-    <p id="status"></p>
-    <div id="progressContainer" style="display: none;">
-        <div id="progressBar" style="width: 0%; height: 20px; background-color: blue; transition: width 0.5s;"></div>
-        <div id="progressText" style="text-align: center; margin-top: 5px; font-weight: bold;">0%</div>
-    </div>
-    <div id="imageGrid"></div>
-</div>
-
-
-<!--style for upload image-->
-<style>
-    .UploadImage {
-        font-family: 'Roboto', sans-serif; /* Use Roboto font */
-        background-color: #f7f5f5;
-        padding: 20px;
-    }
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .clickToUpload {
-        color: rgb(125, 120, 237);
-    }
-    .clickToUpload:hover {
-        color: blue;
-        text-decoration: underline;
-    }
-    #dropZone {
-        border: 2px dashed #007bff;
-        border-radius: 10px;
-        padding:20px;
-        text-align: center;
-        transition: background-color 0.3s;
-        margin: 0 auto;
-        width: 80%;
-        cursor: pointer;
-        position: relative;
-    }
-    #dropZone:hover {
-        background-color: #e8f0ff;
-    }
-    #dropZone img {
-        width: 50px; /* Icon size */
-        height: auto;
-        margin-bottom: 10px;
-    }
-    #status {
-        text-align: center;
-        margin-top: 10px;
-        color: #555;
-    }
-    #imageGrid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        margin-top: 20px;
-    }
-    .imageContainer {
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    .imageContainer img {
-        width: 100%;
-        height: auto;
-        border-radius: 5px;
-    }
-    .deleteButton {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: red;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        padding: 5px 10px;
-    }
-    #progressContainer {
-        width: 100%;
-        max-width: 400px; /* Limit the width of the progress bar */
-        margin: 20px auto; /* Center the container */
-        text-align: center; /* Center text within the container */
-        border-radius: 20px;
-    }
-    
-    #progressBar {
-        background-color: blue; /* Initial color */
-        transition: width 0.5s ease; /* Smooth transition for the width */
-        border-radius: 20px;
-    }
-    
-    @media (max-width: 900px) {
-        #imageGrid {
-            grid-template-columns: repeat(3, 1fr); /* 3 columns for tablets */
-        }
-    }
-    
-    @media (max-width: 600px) {
-        #imageGrid {
-            grid-template-columns: repeat(2, 1fr); /* 2 columns for phones */
-        }
-    }
-    
-    @media (max-width: 400px) {
-        #imageGrid {
-            grid-template-columns: 1fr; /* 1 column for small phones */
-        }
-    }
-</style>
-<!--style for upload image-->
-
-</div>
-<!--/Upload Image section -->
-
-<!--||----------------------------------------------------------------------||-->
-
-<!--Book Readings -->
-<div class="Book">
-    <div class="book-container">
-        <h1>Book Reading</h1>
-        <label for="bookSelect">Select a Book:</label>
-        <select class="book-select" id="bookSelect">
-            <option value="">-- Choose a book --</option>
-            <option value="The Ramayana">The Ramayana</option>
-            <option value="Bhagavad Gita">Bhagavad Gita</option>
-            <option value="Krishna">Krishna</option>
-        </select>
-        
-        <label for="bookInput">Or enter the book name:</label>
-        <input type="text" id="bookInput" placeholder="Enter book name">
-        
-        <label for="bookDescription">Write about today's book readings...</label>
-        <textarea id="bookDescription" placeholder="Enter today's book readings..."></textarea>
-        
-        <button class="submit-button" id="submitBtn">Submit</button>
-
-        <div id="bookInfo" class="book-info" style="display: none;"></div>
-        
-    </div>
     <style>
-        .Book {
-            font-family: 'Roboto', sans-serif;
-        }
-        .book-container {
-            max-width: 600px;
-            margin: 50px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
-        }
-        label {
-            margin-top: 15px;
-            font-weight: 600;
-            display: block;
-            color: #34495e;
-        }
-        input[type="text"], textarea {
-            width: 95%;
-            padding: 12px;
-            margin-top: 5px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            transition: border 0.3s;
+        /* Logout button styles */
+        .logout {
+            padding: 10px 20px;
             font-size: 16px;
-        }
-        .book-select {
-            width: 99%;
-            padding: 12px;
-            margin-top: 5px;
-            border: 1px solid #bdc3c7;
-            border-radius: 5px;
-            transition: border 0.3s;
-            font-size: 16px;
-        }
-        textarea {
-            height: 120px;
-            resize: none;
-        }
-        .submit-button {
-            background-color: #3498db;
             color: white;
+            background-color: #ff4d4d;
             border: none;
             border-radius: 5px;
-            padding: 12px 15px;
             cursor: pointer;
-            font-size: 18px;
-            margin-top: 15px;
-            transition: background-color 0.3s, transform 0.2s;
-            width: 100%;
+            transition: background-color 0.3s, transform 0.3s;
+            align-items: center;
         }
-        .submit-button:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
+        .logout:hover {
+            background-color: #ff1a1a;
+            transform: scale(1.05);
         }
-        .book-info {
-            margin-top: 20px;
-            padding: 15px;
-            border: 1px solid #ecf0f1;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            color: #333;
+        @media (max-width: 600px) {
+            .logout {
+                width: 100%;
+                font-size: 18px;
+            }
+        }
+
+        /* Button grid styles */
+        .button-grid {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .grid-button {
+            padding: 15px 25px;
             font-size: 16px;
-        }
-        
-        .book-entries {
-            display: grid;
-            grid-template-columns: repeat(3, auto);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .entry {
-            border: 1px solid #ecf0f1;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
             border-radius: 5px;
-            background-color: #f9f9f9;
-            padding: 15px;
-            color: #333;
-            font-size: 16px;
-            position: relative;
-        }
-        .read-more {
-            color: #3498db;
             cursor: pointer;
-            text-decoration: underline;
-            margin-top: 10px;
-            display: inline-block;
+            transition: background-color 0.3s, transform 0.3s;
+            text-decoration: none;
+            text-align: center;
         }
-        .full-description {
-            display: none; /* Initially hide the full description */
-            margin-top: 10px;
+        .grid-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
         }
-        @media (max-width: 900px) { /* Adjust the max-width for tablets */
-            .book-entries {
-                grid-template-columns: repeat(2, auto); /* 2 columns for tablets */
-            }
-            .book-select {
-                width: 99%;
-                padding: 12px;
-                margin-top: 5px;
-                border: 1px solid #bdc3c7;
-                border-radius: 5px;
-                transition: border 0.3s;
-                font-size: 16px;
-            }
+        .grid-button {
+            font-family:'Roboto', sans-serif;
         }
-        @media (max-width: 600px) { /* Adjust the max-width as needed */
-            .book-entries {
-                grid-template-columns: 1fr; /* Change to 1 column */
-            }
-            .book-select {
-                width: 101.2%;
-            }
-            
-            @media (max-width: 400px) {
-                .book-select {
-                    width: 103%;
-                }
+        @media (max-width: 600px) {
+            .grid-button {
+                width: 100%;
+                margin: 10px 0;
             }
         }
     </style>
-</div>
-<div style="font-family:'Roboto', sans-serif ;" id="bookEntries" class="book-entries"></div>
-<!--/Book Readings -->
+</head>
+<body>
     
+    <!-- Logout button -->
+    <div class="log">
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
+    <!-- /Logout button -->
 
+    <!-- Button grid -->
+    <div class="button-grid">
+        <a href="Hare krishna.html" class="grid-button">Hare Krishna Mantra</a>
+        <a href="book.html" class="grid-button">Book Reading</a>
+        <a href="Gheeoffering.html" class="grid-button">Ghee Offering</a>
+    </div>
+    <!-- /Button grid -->
 
-
-
-
-      <!--imports-->
+    <!-- Imports -->
     <script type="module" src="js/indexs.js"></script>
-
-    <!--disable this page 
-<script>
-    document.addEventListener('contextmenu', (event) => {
-        event.preventDefault();
-    });
-</script> -->
-
+    <script>
+        function logout() {
+            window.location.href = './index.html';
+        }
+    </script>
 </body>
 </html>
