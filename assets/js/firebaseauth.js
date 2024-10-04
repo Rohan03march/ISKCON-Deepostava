@@ -46,6 +46,22 @@ function showMessage(message, divId) {
   }, 5000);
 }
 
+// Function to validate the phone number
+function validatePhoneNumber(phoneNo) {
+  const phoneRegex = /^\d{10}$/; // 10 digit phone number
+  return phoneRegex.test(phoneNo);
+}
+
+// Function to validate the email
+function validateEmail(email) {
+  return email.includes("@");
+}
+
+// Function to validate the password
+function validatePassword(password) {
+  return password.length >= 6; // At least 6 characters
+}
+
 // Sign Up Event Listener
 const signUp = document.getElementById("submitSignUp");
 signUp.addEventListener("click", (event) => {
@@ -56,6 +72,23 @@ signUp.addEventListener("click", (event) => {
   const lastName = document.getElementById("lName").value;
   const phoneNo = document.getElementById("phoneNo").value;
 
+  // Validate inputs
+  if (!validateEmail(email)) {
+    showMessage("Invalid email address. Must contain '@'.", "signUpMessage");
+    return;
+  }
+
+  if (!validatePassword(password)) {
+    showMessage("Password must be at least 6 characters long.", "signUpMessage");
+    return;
+  }
+
+  if (!validatePhoneNumber(phoneNo)) {
+    showMessage("Phone number must be exactly 10 digits.", "signUpMessage");
+    return;
+  }
+
+  // Create user if validations pass
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
@@ -110,27 +143,18 @@ signIn.addEventListener("click", (event) => {
     });
 });
 
-/* Sign Out Event Listener
-const logoutButton = document.getElementById('logout');
-logoutButton.addEventListener('click', () => {
-    signOut(auth)
-        .then(() => {
-            localStorage.removeItem('loggedInUserId');
-            showMessage('Successfully Logged Out', 'signInMessage');
-            window.location.href = 'login.html'; // Redirect to login page or desired location
-        })
-        .catch((error) => {
-            console.error('Error Signing Out: ', error);
-        });
-});
-*/
-
-//Password reset
+// Password Reset
 const ForgotPassLabel = document.getElementById("reset");
 let ForgotPassword = () => {
-  sendPasswordResetEmail(auth, email.value)
+  const email = document.getElementById("email").value; // Make sure to get the email input
+  if (!validateEmail(email)) {
+    showMessage("Invalid email address. Must contain '@'.", "signInMessage");
+    return;
+  }
+
+  sendPasswordResetEmail(auth, email)
     .then(() => {
-      alert("A password Reset Link has been sent to your email");
+      alert("A password reset link has been sent to your email");
     })
     .catch((error) => {
       console.log(error.code);

@@ -7,6 +7,8 @@
     <link rel="icon" href="assets/images/iskcon-fevicon.png" type="image/gif" />
     <title>Deepostava</title>
     <style>
+        /* Existing styles... */
+
         /* Logout button styles */
         .logout {
             padding: 10px 20px;
@@ -30,42 +32,169 @@
             }
         }
 
-        /* Button grid styles */
-        .button-grid {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .grid-button {
-            padding: 15px 25px;
-            font-size: 16px;
-            color: white;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            text-decoration: none;
+        /* Styles for the download manual section */
+        .shadow-block {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             text-align: center;
+            max-width: 400px;
+            margin: 50px auto;
+            transition: transform 0.2s;
+            font-family: 'Roboto', sans-serif;
         }
-        .grid-button:hover {
+
+        .shadow-block:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        select, .download {
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .download {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            transition: background-color 0.3s;
+        }
+
+        .download:hover {
             background-color: #45a049;
-            transform: scale(1.05);
         }
-        .grid-button {
-            font-family:'Roboto', sans-serif;
+
+        /* Styles for thank you message */
+        .thank-you-message {
+            text-align: center;
+            margin-top: 30px;
+            display: none; /* Initially hidden */
         }
-        @media (max-width: 600px) {
-            .grid-button {
-                width: 100%;
-                margin: 10px 0;
+
+        .thank-you-message h1 {
+            font-size: 32px;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .down-arrow {
+            font-size: 48px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
             }
         }
+
+        @media (max-width: 600px) {
+            .shadow-block {
+                padding: 20px;
+                margin: 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            select, .download {
+                font-size: 14px;
+            }
+        }
+
+       /* Styles for the image grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns by default */
+    gap: 10px;
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-container img {
+    width: 100%;
+    transition: transform 0.3s;
+}
+
+.image-container:hover img {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding: 10px;
+}
+
+.image-container:hover .overlay {
+    opacity: 1; /* Show overlay on hover */
+}
+
+.overlay h3 {
+    margin: 0 0 10px 0;
+}
+
+.overlay .info-button {
+    padding: 8px 16px;
+    background-color: #1377dc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.overlay .info-button:hover {
+    background-color: #4277ad;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+    .image-grid {
+        grid-template-columns: 1fr; /* Single column for small screens */
+    }
+}
+
     </style>
 </head>
 <body>
-    
     
     <!-- Logout button -->
     <div class="log">
@@ -73,115 +202,61 @@
     </div>
     <!-- /Logout button -->
 
-     <!--download manual-->
-<div class="shadow-block">
-    <h2>Damodara Manual</h2>
-    <p>Select your preferred language to download:</p>
-    <select id="language">
-        <option value="">--Select Language--</option>
-        <option value="Bitcoin">Bitcoin</option>
-        <option value="darkmatter">Dark Matter</option>
-    </select>
-    <br>
-    <button  class="download" id="downloadBtn">Download Manual</button>
-    <style>
-    .shadow-block {
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        text-align: center;
-        max-width: 400px;
-        margin: 50px auto;
-        transition: transform 0.2s;
-        font-family:'Roboto', sans-serif ;
-    }
-
-    .shadow-block:hover {
-        transform: translateY(-5px);
-    }
-
-    h2 {
-        color: #333;
-        margin-bottom: 15px;
-    }
-
-    p {
-        color: #666;
-        margin-bottom: 20px;
-    }
-
-    select, .download {
-        padding: 12px;
-        margin-top: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 16px;
-    }
-
-    .download {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        transition: background-color 0.3s;
-    }
-
-    .download:hover {
-        background-color: #45a049;
-    }
-
-    @media (max-width: 600px) {
-        .shadow-block {
-            padding: 20px;
-            margin: 20px;
-        }
-
-        h2 {
-            font-size: 24px;
-        }
-
-        select, .download {
-            font-size: 14px;
-        }
-    }
-</style>
-
-<script>
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-        const language = document.getElementById('language').value;
-        let fileUrl = '';
-
-        if (language === 'Bitcoin') {
-            fileUrl = 'assets/bitcoin-kannada.pdf'; // Replace with actual URL
-        } else if (language === 'darkmatter') {
-            fileUrl = 'assets/dark matter.pdf'; // Replace with actual URL
-        } else {
-            alert('Please select a language.');
-            return;
-        }
-
-        // Triggering download 
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = '';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
-</script>
-</div>
-<!--/download manual -->
-
-
-    <!-- Button grid -->
-    <div class="button-grid">
-        <a href="Mantra.html" class="grid-button">Hare Krishna Mantra</a>
-        <a href="book.html" class="grid-button">Book Reading</a>
-        <a href="Gheeoffering.html" class="grid-button">Ghee Offering</a>
+    <!-- Download manual -->
+    <div class="shadow-block">
+        <h2>Damodara Manual</h2>
+        <p>Select your preferred language to download:</p>
+        <select id="language">
+            <option value="">--Select Language--</option>
+            <option value="Bitcoin">Bitcoin</option>
+            <option value="darkmatter">Dark Matter</option>
+        </select>
+        <br>
+        <button class="download" id="downloadBtn">Download Manual</button>
     </div>
-    <!-- /Button grid -->
+    <!-- /Download manual -->
+
+    <!-- Thank you message -->
+    <div class="thank-you-message">
+        <h1>Thank you for downloading!</h1>
+        <div class="down-arrow">↓</div>
+    </div>
+    <!-- /Thank you message -->
+
+    <!-- Image Grid -->
+<div class="image-grid">
+    <div class="image-container">
+        <img src="https://via.placeholder.com/560x436" alt="Image 1">
+        <div class="overlay">
+            <h3 style="font-family: 'Roboto', sans-serif;">Chanting Hare Krishna Maha Mantra</h3>
+            <button class="info-button" onclick="window.location.href='Mantra.html'">Participate</button>
+        </div>
+    </div>
+    <div class="image-container">
+        <img src="https://via.placeholder.com/560x436" alt="Image 2">
+        <div class="overlay">
+            <h3 style="font-family: 'Roboto', sans-serif;"> Read Krishna Book</h3>
+            <button class="info-button" onclick="window.location.href='Book.html'">Participate</button>
+        </div>
+    </div>
+    <div class="image-container">
+        <img src="https://via.placeholder.com/560x436" alt="Image 3">
+        <div class="overlay">
+            <h3 style="font-family: 'Roboto', sans-serif;">Offer Ghee To Lord</h3>
+            <button class="info-button" onclick="window.location.href='Gheeoffering.html'">Participate</button>
+        </div>
+    </div>
+    <div class="image-container">
+        <img src="https://via.placeholder.com/560x436" alt="Image 4">
+        <div class="overlay">
+            <h3 style="font-family: 'Roboto', sans-serif;"> Daily Activities</h3>
+            <button class="info-button" onclick="window.location.href='page4.html'">Participate</button>
+        </div>
+    </div>
+</div>
+<!-- /Image Grid -->
+
+    <!-- /Image Grid -->
 
     <!-- Imports -->
     <script type="module" src="assets/js/indexs.js"></script>
@@ -189,12 +264,34 @@
         function logout() {
             window.location.href = './index.html';
         }
+
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const language = document.getElementById('language').value;
+            let fileUrl = '';
+
+            if (language === 'Bitcoin') {
+                fileUrl = 'assets/bitcoin-kannada.pdf'; // Replace with actual URL
+            } else if (language === 'darkmatter') {
+                fileUrl = 'assets/dark matter.pdf'; // Replace with actual URL
+            } else {
+                alert('Please select a language.');
+                return;
+            }
+
+            // Triggering download 
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Hide the shadow block and show thank you message after 10 seconds
+            document.querySelector('.shadow-block').style.display = 'none';
+            setTimeout(function() {
+                document.querySelector('.thank-you-message').style.display = 'block';
+            }, 10000);
+        });
     </script>
 </body>
 </html>
-<!--disable this page 
-<script>
-  document.addEventListener('contextmenu', (event) => {
-      event.preventDefault();
-  });
-</script> -->

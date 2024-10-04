@@ -1,35 +1,21 @@
-<div class="button-grid">
-    <a href="./indexs.html" class="grid-button">Home</a>
-    <style>
-        .button-grid {
-            display: flex;
-            justify-content: left;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .grid-button {
-            padding: 15px 25px;
-            font-size: 16px;
-            color: white;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            text-decoration: none;
-            text-align: center;
-        }
-        .grid-button:hover {
-            background-color: #45a049;
-            transform: scale(1.05);
-        }
-        .grid-button {
-            font-family:'Roboto', sans-serif;
-        }
-    </style>
-</div>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="music-player">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Day #30 - Music Player | AsmrProg</title>
+</head>
+
+<body>
+
+    <div class="background">
+        <img src="" id="bg-img">
+    </div>
+
     <div class="container">
         <div class="player-img">
             <img src="" class="active" id="cover">
@@ -52,129 +38,158 @@
             <i class="fa-solid fa-forward" title="Next" id="next"></i>
         </div>
 
-        <!--|----------style--------------|-->
-        <style> 
-            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-            .music-player{
-                margin: 0;
-                font-family: 'Roboto', sans-serif;
-                font-size: 12px;
-                min-height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .container{
-                background-color: #e7e7e7;
-                height: 500px;
-                width: 400px;
-                border-radius: 20px;
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-                transition: all 0.5s ease;
-            }
-            
-            .container:hover{
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
-            }
-            
-            .player-img{
-                width: 300px;
-                height: 300px;
-                position: relative;
-                top: -50px;
-                left: 50px;
-            }
-            
-            .player-img img{
-                object-fit: cover;
-                border-radius: 20px;
-                height: 0;
-                width: 0;
-                opacity: 0;
-                box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.5);
-            }
-            
-            .player-img:hover img{
-                box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.8);
-            }
-            
-            .player-img img.active{
-                width: 100%;
-                height: 100%;
-                transition: all 0.5s;
-                opacity: 1;
-            }
-            
-            h2{
-                font-size: 28px;
-                text-align: center;
-                font-weight: 500;
-                margin: 10px 0 0;
-            }
-            
-            h3{
-                font-size: 18px;
-                text-align: center;
-                font-weight: 500;
-                margin: 10px 0 0;
-            }
-            
-            .player-progress{
-                background-color: #fff;
-                border-radius: 5px;
-                cursor: pointer;
-                margin: 40px 20px 35px;
-                height: 6px;
-                width: 90%;
-            }
-            
-            .progress{
-                background-color: #212121;
-                border-radius: 5px;
-                height: 100%;
-                width: 0%;
-                transition: width 0.1s linear;
-            }
-            
-            .music-duration{
-                position: relative;
-                top: -25px;
-                display: flex;
-                justify-content: space-between;
-            }
-            
-            .player-controls{
-                position: relative;
-                top: -15px;
-                left: 120px;
-                width: 200px;
-            }
-            
-            .fa-solid{
-                font-size: 30px;
-                color: #666;
-                margin-right: 30px;
-                cursor: pointer;
-                user-select: none;
-                transition: all 0.3s ease;
-            }
-            
-            .fa-solid:hover{
-                filter: brightness(40%);
-            }
-            
-            .play-button{
-                font-size: 44px;
-                position: relative;
-                top: 3px;
-            }
-        </style>
-        <!--|----------style-end----------|-->
+    </div>
 
-        <!--|---------script--------------|-->
-        <script>
-            const image = document.getElementById('cover'),
+    <script src="index.js"></script>
+</body>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+html{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 12px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.background{
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    z-index: -1;
+}
+
+.background img{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    min-width: 50%;
+    min-height: 50%;
+    filter: blur(15px);
+    -webkit-filter: blur(50px);
+    transform: scale(1.1);
+}
+
+.container{
+    background-color: #e7e7e7;
+    height: 500px;
+    width: 400px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s ease;
+}
+
+.container:hover{
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+}
+
+.player-img{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    top: -50px;
+    left: 50px;
+}
+
+.player-img img{
+    object-fit: cover;
+    border-radius: 20px;
+    height: 0;
+    width: 0;
+    opacity: 0;
+    box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.5);
+}
+
+.player-img:hover img{
+    box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.8);
+}
+
+.player-img img.active{
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s;
+    opacity: 1;
+}
+
+h2{
+    font-size: 25px;
+    text-align: center;
+    font-weight: 500;
+    margin: 10px 0 0;
+}
+
+h3{
+    font-size: 18px;
+    text-align: center;
+    font-weight: 500;
+    margin: 10px 0 0;
+}
+
+.player-progress{
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 40px 20px 35px;
+    height: 6px;
+    width: 90%;
+}
+
+.progress{
+    background-color: #212121;
+    border-radius: 5px;
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.music-duration{
+    position: relative;
+    top: -25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.player-controls{
+    position: relative;
+    top: -15px;
+    left: 120px;
+    width: 200px;
+}
+
+.fa-solid{
+    font-size: 30px;
+    color: #666;
+    margin-right: 30px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s ease;
+}
+
+.fa-solid:hover{
+    filter: brightness(40%);
+}
+
+.play-button{
+    font-size: 44px;
+    position: relative;
+    top: 3px;
+}
+</style>
+<script>
+    const image = document.getElementById('cover'),
     title = document.getElementById('music-title'),
     artist = document.getElementById('music-artist'),
     currentTimeEl = document.getElementById('current-time'),
@@ -193,8 +208,8 @@ const songs = [
         path: 'assets/1.mp3',
         displayName: 'Hare Krishna Maha Mantra',
         cover: 'assets/1.jpg',
-        artist: 'Srila Prabhupada',
-    }
+        artist: 'Srila Phrabhu',
+    },
 ];
 
 let musicIndex = 0;
@@ -234,6 +249,12 @@ function loadMusic(song) {
     background.src = song.cover;
 }
 
+function changeMusic(direction) {
+    musicIndex = (musicIndex + direction + songs.length) % songs.length;
+    loadMusic(songs[musicIndex]);
+    playMusic();
+}
+
 function updateProgressBar() {
     const { duration, currentTime } = music;
     const progressPercent = (currentTime / duration) * 100;
@@ -258,15 +279,5 @@ music.addEventListener('timeupdate', updateProgressBar);
 playerProgress.addEventListener('click', setProgressBar);
 
 loadMusic(songs[musicIndex]);
-        </script>
-        <!--|---------script-end|---------|-->
-
-    </div>
-</div>
-
-<!--disable this page 
-<script>
-  document.addEventListener('contextmenu', (event) => {
-      event.preventDefault();
-  });
-</script> -->
+</script>
+</html>
