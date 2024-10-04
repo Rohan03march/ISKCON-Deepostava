@@ -44,7 +44,7 @@
     <h1>Upload Image</h1>
     <div id="dropZone">
         <img src="assets/images/image.png" alt="Upload Icon" />
-        <p>Drag and Drop to Upload Image <br/> OR  <br/><span class="clickToUpload">Click to upload</span> </p>
+        <p><span class="clickToUpload">Browse</span> or drop image</p>
     </div>
     <input type="file" id="fileInput" accept="image/*" style="display: none;" multiple />
     <p id="status"></p>
@@ -60,15 +60,17 @@
 <style>
     .UploadImage {
         font-family: 'Roboto', sans-serif; /* Use Roboto font */
-        background-color: #f7f5f5;
         padding: 20px;
     }
     h1 {
         text-align: center;
         margin-bottom: 20px;
     }
-
+    p {
+        font-weight: bold;
+    }
     .clickToUpload {
+        font-weight: bold;
         color: rgb(125, 120, 237);
     }
     .clickToUpload:hover {

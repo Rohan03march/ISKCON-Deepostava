@@ -66,15 +66,118 @@
 </head>
 <body>
     
+    
     <!-- Logout button -->
     <div class="log">
         <button class="logout" onclick="logout()">Logout</button>
     </div>
     <!-- /Logout button -->
 
+     <!--download manual-->
+<div class="shadow-block">
+    <h2>Damodara Manual</h2>
+    <p>Select your preferred language to download:</p>
+    <select id="language">
+        <option value="">--Select Language--</option>
+        <option value="Bitcoin">Bitcoin</option>
+        <option value="darkmatter">Dark Matter</option>
+    </select>
+    <br>
+    <button  class="download" id="downloadBtn">Download Manual</button>
+    <style>
+    .shadow-block {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        max-width: 400px;
+        margin: 50px auto;
+        transition: transform 0.2s;
+        font-family:'Roboto', sans-serif ;
+    }
+
+    .shadow-block:hover {
+        transform: translateY(-5px);
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    select, .download {
+        padding: 12px;
+        margin-top: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .download {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .download:hover {
+        background-color: #45a049;
+    }
+
+    @media (max-width: 600px) {
+        .shadow-block {
+            padding: 20px;
+            margin: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        select, .download {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<script>
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        const language = document.getElementById('language').value;
+        let fileUrl = '';
+
+        if (language === 'Bitcoin') {
+            fileUrl = 'assets/bitcoin-kannada.pdf'; // Replace with actual URL
+        } else if (language === 'darkmatter') {
+            fileUrl = 'assets/dark matter.pdf'; // Replace with actual URL
+        } else {
+            alert('Please select a language.');
+            return;
+        }
+
+        // Triggering download 
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = '';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+</script>
+</div>
+<!--/download manual -->
+
+
     <!-- Button grid -->
     <div class="button-grid">
-        <a href="Hare krishna.html" class="grid-button">Hare Krishna Mantra</a>
+        <a href="Mantra.html" class="grid-button">Hare Krishna Mantra</a>
         <a href="book.html" class="grid-button">Book Reading</a>
         <a href="Gheeoffering.html" class="grid-button">Ghee Offering</a>
     </div>
