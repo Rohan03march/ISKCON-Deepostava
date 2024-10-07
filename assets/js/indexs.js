@@ -44,7 +44,6 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     userId = user.uid;
     await loadImages(); // Load images after user is authenticated
-    await checkDownloadStatus();
   } else {
     window.location.href = "index.html"; // Redirect if not logged in
   }
