@@ -210,7 +210,66 @@
 </div>
 
 
-
+<div class="chat">
+    <div class="chat-container">
+        <div class="message" id="messageContainer">
+        </div>
+        <div class="input-container">
+            <input type="text" id="userMessage" placeholder="Type Today's learning..." />
+            <button id="submitMessage">Submit</button>
+        </div>
+    </div>
+    <style>
+        .chat {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            position: relative;
+        }
+        .message {
+            margin-bottom: 20px;
+        }
+        .message p {
+            background: #e0e0e0;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .input-container {
+            display: flex;
+            margin-top: 20px;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-container button {
+            padding: 10px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .input-container button:hover {
+            background: #0056b3;
+        }
+       
+    </style>
+    
+    </div>
 </html>
 
 
