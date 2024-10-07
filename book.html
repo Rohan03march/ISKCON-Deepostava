@@ -135,7 +135,9 @@
                 font-family: 'Roboto', sans-serif;
             }
         </style>
-        
+    </div>
+    <div class="button-grid">
+        <li><a href="#" id="totalPoints">Total Points: <span id="pointsDisplay">0</span></a></li>
     </div>
     <div class="book_wrapper">
         <a id="next_page_button"></a>
@@ -212,8 +214,7 @@
 
 <div class="chat">
     <div class="chat-container">
-        <div class="message" id="messageContainer">
-        </div>
+        <div class="message" id="messageContainer"></div>
         <div class="input-container">
             <input type="text" id="userMessage" placeholder="Type Today's learning..." />
             <button id="submitMessage">Submit</button>
@@ -266,10 +267,204 @@
         .input-container button:hover {
             background: #0056b3;
         }
-       
     </style>
-    
-    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyB1jmMeWclknWulKUJLTu894mY5L3IHexw",
+            authDomain: "iskcondeepostava-d89e2.firebaseapp.com",
+            projectId: "iskcondeepostava-d89e2",
+            storageBucket: "iskcondeepostava-d89e2.appspot.com",
+            messagingSenderId: "599506324462",
+            appId: "1:599506324462:web:7997c5dde1549d26365cff",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let userId;
+
+            // Define keywords and their corresponding points
+            const keywords = {
+                "dharma": 5,
+                "karma": 5,
+                "bhakti": 5,
+                "yoga": 5,
+                "moksha": 5,
+                "sankhya": 5,
+                "atman": 5,
+                "brahman": 5,
+                "rasa": 5,
+                "leela": 5,
+                "vishnu": 5,
+                "avatar": 5,
+                "devotion": 5,
+                "self-realization": 5,
+                "meditation": 5,
+                "surrender": 5,
+                "wisdom": 5,
+                "purusha": 5,
+                "prakriti": 5,
+                "detachment": 5,
+                "faith": 5,
+                "knowledge": 5,
+                "love": 5,
+                "compassion": 5,
+                "truth": 5,
+                "samsara": 5,
+                "nirvana": 5,
+                "satya": 5,
+                "seva": 5,
+                "ananda": 5,
+                "krishna consciousness": 5,
+                "divine love": 5,
+                "grace": 5,
+                "tamas": 5,
+                "rajas": 5,
+                "sattva": 5,
+                "vairagya": 5,
+                "shraddha": 5,
+                "sadhana": 5,
+                "yajna": 5,
+                "puja": 5,
+                "prasad": 5,
+                "brahmacharya": 5,
+                "kirtan": 5,
+                "sankirtan": 5,
+                "vedas": 5,
+                "upanishads": 5,
+                "mahabharata": 5,
+                "gopis": 5,
+                "radha": 5,
+                "divine play": 5,
+                "chaitanya": 5,
+                "bhagavata": 5,
+                "transcendence": 5,
+                "devotional service": 5,
+                "cosmic order": 5,
+                "surrender to god": 5,
+                "rasa lila": 5,
+                "acyuta": 5,
+                "good": 5,
+                "amazing": 5,
+                "nice": 5,
+                "excellent": 5,
+                "wonderful": 5,
+                "fantastic": 5,
+                "awesome": 5,
+                "marvelous": 5,
+                "incredible": 5,
+                "brilliant": 5,
+                "exceptional": 5,
+                "fabulous": 5,
+                "outstanding": 5,
+                "superb": 5,
+                "pleasant": 5,
+                "delightful": 5,
+                "joyful": 5,
+                "radiant": 5,
+                "exquisite": 5
+            };
+
+            // Update the total points display
+            function updatePointsDisplay(points) {
+                document.getElementById('pointsDisplay').textContent = points;
+            }
+
+            // Handle authentication state
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    await loadMessages(); // Load messages after user is authenticated
+                    await updatePointsDisplayOnLogin(); // Update points display on login
+                } else {
+                    window.location.href = "index.html"; // Redirect if not logged in
+                }
+            });
+
+            const submitButton = document.getElementById('submitMessage');
+            const userMessageInput = document.getElementById('userMessage');
+
+            // Function to calculate points based on keywords and word count
+            function calculatePoints(message) {
+                let totalPoints = 0;
+                const words = message.toLowerCase().split(/\W+/); // Split by non-word characters
+
+                words.forEach(word => {
+                    totalPoints += 2; // Base points for each word
+                    if (keywords[word]) {
+                        totalPoints += keywords[word]; // Add keyword points if present
+                    }
+                });
+
+                return totalPoints;
+            }
+
+            // Update points display when the user logs in
+            async function updatePointsDisplayOnLogin() {
+                const userDocRef = doc(db, 'users', userId);
+                const userDoc = await getDoc(userDocRef);
+                const currentPoints = userDoc.exists() ? userDoc.data().messagePoints || 0 : 0;
+                updatePointsDisplay(currentPoints); // Set initial points display
+            }
+
+            // Submit message
+            submitButton.addEventListener('click', async () => {
+                const userMessage = userMessageInput.value;
+                if (userMessage.trim() !== '') {
+                    const points = calculatePoints(userMessage);
+                    
+                    // Store message and update total points in Firestore
+                    const userDocRef = doc(db, 'users', userId);
+                    const userDoc = await getDoc(userDocRef);
+                    const currentPoints = userDoc.exists() ? userDoc.data().messagePoints || 0 : 0;
+                    const newTotalPoints = currentPoints + points;
+
+                    await setDoc(userDocRef, {
+                        messages: arrayUnion({
+                            text: userMessage,
+                            createdAt: Date.now(), // Add createdAt for sorting
+                        }),
+                        messagePoints: newTotalPoints // Update total message points
+                    }, { merge: true });
+                    
+                    displayMessage(userMessage);
+                    updatePointsDisplay(newTotalPoints); // Update displayed points
+                    userMessageInput.value = ''; // Clear input field
+                }
+            });
+
+            // Load messages
+            async function loadMessages() {
+                const userDocRef = doc(db, 'users', userId);
+                const userDoc = await getDoc(userDocRef);
+
+                if (userDoc.exists()) {
+                    const messages = userDoc.data().messages || [];
+                    messages.sort((a, b) => a.createdAt - b.createdAt);
+                    messages.forEach(message => {
+                        displayMessage(message.text);
+                    });
+                }
+            }
+
+            // Function to display a message
+            function displayMessage(message) {
+                const newMessage = document.createElement('p');
+                newMessage.textContent = message; // Show message without points
+                document.getElementById('messageContainer').appendChild(newMessage);
+            }
+        });
+    </script>
+</div>
+
 </html>
 
 

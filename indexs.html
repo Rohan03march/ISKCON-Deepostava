@@ -1,297 +1,413 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="assets/images/iskcon-fevicon.png" type="image/gif" />
-    <title>Deepostava</title>
-    <style>
-        /* Existing styles... */
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Deepotsava</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 
-        /* Logout button styles */
-        .logout {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: #ff4d4d;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            align-items: center;
-        }
-        .logout:hover {
-            background-color: #ff1a1a;
-            transform: scale(1.05);
-        }
-        @media (max-width: 600px) {
-            .logout {
-                width: 100%;
-                font-size: 18px;
-            }
-        }
+  <!-- Favicons -->
+  <link href="./assets/images/iskcon-fevicon.png" rel="icon">
 
-        /* Styles for the download manual section */
-        .shadow-block {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 400px;
-            margin: 50px auto;
-            transition: transform 0.2s;
-            font-family: 'Roboto', sans-serif;
-        }
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-        .shadow-block:hover {
-            transform: translateY(-5px);
-        }
+  <!-- Vendor CSS Files -->
+  <link href="assetss/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assetss/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assetss/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assetss/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assetss/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assetss/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-        h2 {
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        select, .download {
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        .download {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            transition: background-color 0.3s;
-        }
-
-        .download:hover {
-            background-color: #45a049;
-        }
-
-        /* Styles for thank you message */
-        .thank-you-message {
-            text-align: center;
-            margin-top: 30px;
-            display: none; /* Initially hidden */
-        }
-
-        .thank-you-message h1 {
-            font-size: 32px;
-            color: #333;
-            font-family: 'Roboto', sans-serif;
-        }
-
-        .down-arrow {
-            font-size: 48px;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .shadow-block {
-                padding: 20px;
-                margin: 20px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            select, .download {
-                font-size: 14px;
-            }
-        }
-
-       /* Styles for the image grid */
-.image-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns by default */
-    gap: 10px;
-    max-width: 800px;
-    margin: 50px auto;
-}
-
-.image-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.image-container img {
-    width: 100%;
-    transition: transform 0.3s;
-}
-
-.image-container:hover img {
-    transform: scale(1.1); /* Slight zoom effect on hover */
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-    padding: 10px;
-}
-
-.image-container:hover .overlay {
-    opacity: 1; /* Show overlay on hover */
-}
-
-.overlay h3 {
-    margin: 0 0 10px 0;
-}
-
-.overlay .info-button {
-    padding: 8px 16px;
-    background-color: #1377dc;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.overlay .info-button:hover {
-    background-color: #4277ad;
-}
-
-/* Media query for mobile devices */
-@media (max-width: 600px) {
-    .image-grid {
-        grid-template-columns: 1fr; /* Single column for small screens */
-    }
-}
-
-    </style>
+  <!-- Main CSS File -->
+  <link href="assetss/css/main.css" rel="stylesheet">
 </head>
-<body>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <img src="./assets/images/iskcon-bangalore-logo-n.png" alt=""> 
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About the compaign</a></li>
+          <li><a href="#features">Activities</a></li>
+          <li><a href="#" id="totalPoints">Total Points: <span id="pointsDisplay">0</span></a></li>
+          <li><a href="index.html">logout</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <div id="hero-carousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+
+        <!-- Slide 1 -->
+        <div class="carousel-item active">
+          <div class="carousel-container">
+            <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Selecao</span></h2>
+            <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+        <defs>
+          <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+        </defs>
+        <g class="wave1">
+          <use xlink:href="#wave-path" x="50" y="3"></use>
+        </g>
+        <g class="wave2">
+          <use xlink:href="#wave-path" x="50" y="0"></use>
+        </g>
+        <g class="wave3">
+          <use xlink:href="#wave-path" x="50" y="9"></use>
+        </g>
+      </svg> -->
+
+    </section><!-- /Hero Section -->
+
     
-    <!-- Logout button -->
-    <div class="log">
-        <button class="logout" onclick="logout()">Logout</button>
-    </div>
-    <!-- /Logout button -->
 
-    <!-- Download manual -->
-    <div class="shadow-block">
-        <h2>Damodara Manual</h2>
-        <p>Select your preferred language to download:</p>
-        <select id="language">
-            <option value="">--Select Language--</option>
-            <option value="Bitcoin">Bitcoin</option>
-            <option value="darkmatter">Dark Matter</option>
-        </select>
-        <br>
-        <button class="download" id="downloadBtn">Download Manual</button>
-    </div>
-    <!-- /Download manual -->
+    <!-- About Section -->
+    <section id="about" class="about section">
 
-    <!-- Thank you message -->
-    <div class="thank-you-message">
-        <h1>Thank you for downloading!</h1>
-        <div class="down-arrow">↓</div>
-    </div>
-    <!-- /Thank you message -->
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About</h2>
+        <p>Who we are</p>
+      </div><!-- End Section Title -->
 
-    <!-- Image Grid -->
-<div class="image-grid">
-    <div class="image-container">
-        <img src="https://via.placeholder.com/560x436" alt="Image 1">
-        <div class="overlay">
-            <h3 style="font-family: 'Roboto', sans-serif;">Chanting Hare Krishna Maha Mantra</h3>
-            <button class="info-button" onclick="window.location.href='Mantra.html'">Participate</button>
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+            <ul>
+              <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
+              <li><i class="bi bi-check2-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo</span></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+         
+          </div>
+
+        </div>
+
+      </div>
+      <div class="center-container" id="Download">
+        <a href="#call-to-action" class="read-more"><span>Download</span><i class="bi bi-arrow-down-short"></i></a>
+    </div>
+<style>
+    .center-container {
+        display: flex;
+        justify-content: center; /* Horizontally center */
+        align-items: center;    /* Vertically center if needed */       
+    }
+</style>    
+
+    </section><!-- /About Section -->
+
+    <!-- Call To Action Section -->
+<section id="call-to-action" class="call-to-action section dark-background">
+    <div class="container">
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+            <div class="col-xl-9 text-center text-xl-start">
+                <h3>Download The Manual</h3>
+                <p>The Manual that Contains the Rules and regulatios on what to do on these 30 days of Deepotsava ... </p>
+            </div>
+            <style>
+                .cta-btn-container {
+                    position: relative;
+                    display: inline-block;
+                }
+                #pdfSelect {
+                    display: none;
+                    position: absolute;
+                    top: 50px; /* Adjust based on button height */
+                    left: 0;
+                    background-color: white;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    padding: 8px;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                    transition: opacity 0.3s ease;
+                    z-index: 1;
+                }
+                #pdfSelect.show {
+                    display: block;
+                    opacity: 1;
+                }
+                .cta-btn {
+                    background-color: #007bff; /* Bootstrap primary color */
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                }
+                .cta-btn:hover {
+                    background-color: #0056b3; /* Darker shade on hover */
+                }
+                #thankYouMessage {
+                    margin-top: 10px;
+                    color: white;
+                    font-weight: bold;
+                }
+            </style>
+            <div class="col-xl-3 cta-btn-container text-center">
+                <select id="pdfSelect">
+                    <option value="">Select a PDF</option>
+                    <option value="pdf1.pdf">Manual-kannada</option>
+                    <option value="pdf2.pdf">Manual-English</option>
+                    <option value="pdf3.pdf">Manual-Hindi</option>
+                </select>
+                <button class="cta-btn align-middle" id="ctaButton">Download Manual</button>
+                <div id="thankYouMessage" style="display: none;">Thank you for downloading!</div>
+            </div>
         </div>
     </div>
-    <div class="image-container">
-        <img src="https://via.placeholder.com/560x436" alt="Image 2">
-        <div class="overlay">
-            <h3 style="font-family: 'Roboto', sans-serif;"> Read Krishna Book</h3>
-            <button class="info-button" onclick="window.location.href='Book.html'">Participate</button>
-        </div>
-    </div>
-    <div class="image-container">
-        <img src="https://via.placeholder.com/560x436" alt="Image 3">
-        <div class="overlay">
-            <h3 style="font-family: 'Roboto', sans-serif;">Offer Ghee To Lord</h3>
-            <button class="info-button" onclick="window.location.href='Gheeoffering.html'">Participate</button>
-        </div>
-    </div>
-    <div class="image-container">
-        <img src="https://via.placeholder.com/560x436" alt="Image 4">
-        <div class="overlay">
-            <h3 style="font-family: 'Roboto', sans-serif;"> Daily Activities</h3>
-            <button class="info-button" onclick="window.location.href='dailyactivity.html'">Participate</button>
-        </div>
-    </div>
-</div>
-<!-- /Image Grid -->
+</section>
 
-    <!-- /Image Grid -->
 
-    <!-- Imports -->
-    <script type="module" src="assets/js/indexs.js"></script>
-    <script>
-        function logout() {
-            window.location.href = './index.html';
-        }
+    <!-- Features Section -->
+    <section id="features" class="features section">
 
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            const language = document.getElementById('language').value;
-            let fileUrl = '';
+      <div class="container">
 
-            if (language === 'Bitcoin') {
-                fileUrl = 'assets/bitcoin-kannada.pdf'; // Replace with actual URL
-            } else if (language === 'darkmatter') {
-                fileUrl = 'assets/dark matter.pdf'; // Replace with actual URL
-            } else {
-                alert('Please select a language.');
-                return;
+        <ul class="nav nav-tabs row  d-flex" data-aos="fade-up" data-aos-delay="100">
+            <li class="nav-item col-3">
+                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                    <i class="bi bi-file-music-fill"></i>
+                  <h4 class="d-none d-lg-block">Chanting Hare Krishna Maha Mantra
+                  </h4>
+                </a>
+                <div class="text-center mt-2">
+                    <a href="./Mantra.html" class="btn">Participate</a>
+                  </div>
+              </li>
+          <li class="nav-item col-3">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
+                <i class="bi bi-book"></i>
+              <h4 class="d-none d-lg-block">Read Krishna Book </h4>
+            </a>
+            <div class="text-center mt-2">
+                <a href="./book.html" class="btn ">Participate</a>
+              </div>
+          </li>
+          <li class="nav-item col-3">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                <i class="bi bi-cloud-arrow-up-fill"></i>
+              <h4 class="d-none d-lg-block">Ghee Offering</h4>
+            </a>
+            <div class="text-center mt-2">
+                <a href="./Gheeoffering.html" class="btn">Participate</a>
+              </div>
+          </li>
+          <li class="nav-item col-3">
+            <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-4">
+              <i class="bi bi-command"></i>
+              <h4 class="d-none d-lg-block">Daily Activities</h4>
+            </a>
+            <div class="text-center mt-2">
+                <a href="./Dailyactivity.html" class="btn">Participate</a>
+              </div>
+          </li>
+          <style>
+            .btn {
+                background-color: #ef6603;
+                color: white;
             }
+            .btn:hover {
+                background-color: #ef6603
+            }
+          </style>
+        </ul><!-- End Tab Nav -->
 
-            // Triggering download 
-            const link = document.createElement('a');
-            link.href = fileUrl;
-            link.download = '';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+        <br/> <br/>
+        <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
 
-            // Hide the shadow block and show thank you message after 10 seconds
-            document.querySelector('.shadow-block').style.display = 'none';
-            setTimeout(function() {
-                document.querySelector('.thank-you-message').style.display = 'block';
-            }, 10000);
-        });
-    </script>
+          <div class="tab-pane fade active show" id="features-tab-1">
+            <div class="row">
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+                <p class="fst-italic">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua.
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-all"></i>
+                    <spab>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</spab>
+                  </li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit</span>.</li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                </ul>
+                <p>
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  culpa qui officia deserunt mollit anim id est laborum
+                </p>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <img src="assetss/img/working-1.jpg" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div><!-- End Tab Content Item -->
+
+          <div class="tab-pane fade" id="features-tab-2">
+            <div class="row">
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                <h3>Neque exercitationem debitis soluta quos debitis quo mollitia officia est</h3>
+                <p>
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  culpa qui officia deserunt mollit anim id est laborum
+                </p>
+                <p class="fst-italic">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua.
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui a. Ipsum neque dolor voluptate nisi sed.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                </ul>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <img src="assetss/img/working-2.jpg" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div><!-- End Tab Content Item -->
+
+          <div class="tab-pane fade" id="features-tab-3">
+            <div class="row">
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                <h3>Voluptatibus commodi ut accusamus ea repudiandae ut autem dolor ut assumenda</h3>
+                <p>
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  culpa qui officia deserunt mollit anim id est laborum
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Provident mollitia neque rerum asperiores dolores quos qui a. Ipsum neque dolor voluptate nisi sed.</span></li>
+                </ul>
+                <p class="fst-italic">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua.
+                </p>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <img src="assetss/img/working-3.jpg" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div><!-- End Tab Content Item -->
+
+          <div class="tab-pane fade" id="features-tab-4">
+            <div class="row">
+              <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
+                <h3>Omnis fugiat ea explicabo sunt dolorum asperiores sequi inventore rerum</h3>
+                <p>
+                  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  culpa qui officia deserunt mollit anim id est laborum
+                </p>
+                <p class="fst-italic">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                  magna aliqua.
+                </p>
+                <ul>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Duis aute irure dolor in reprehenderit in voluptate velit.</span></li>
+                  <li><i class="bi bi-check2-all"></i> <span>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</span></li>
+                </ul>
+              </div>
+              <div class="col-lg-6 order-1 order-lg-2 text-center">
+                <img src="assetss/img/working-4.jpg" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div><!-- End Tab Content Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+    <div class="container">
+      <h3 class="sitename">Selecao</h3>
+      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <div class="social-links d-flex justify-content-center">
+        <a href=""><i class="bi bi-twitter-x"></i></a>
+        <a href=""><i class="bi bi-facebook"></i></a>
+        <a href=""><i class="bi bi-instagram"></i></a>
+        <a href=""><i class="bi bi-skype"></i></a>
+        <a href=""><i class="bi bi-linkedin"></i></a>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <span>Copyright</span> <strong class="px-1 sitename">Selecao</strong> <span>All Rights Reserved</span>
+        </div>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you've purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assetss/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assetss/vendor/php-email-form/validate.js"></script>
+  <script src="assetss/vendor/aos/aos.js"></script>
+  <script src="assetss/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assetss/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assetss/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assetss/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assetss/js/main.js"></script>
 </body>
+
 </html>
